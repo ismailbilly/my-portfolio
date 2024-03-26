@@ -6,7 +6,10 @@ const nextConfig = {
                 hostname: 'localhost',
             }
         ]
-    }
+    },
+    // experimental: {
+    //     serverActions:true,
+    // },
 }
 
 module.exports = nextConfig
