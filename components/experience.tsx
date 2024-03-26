@@ -12,7 +12,7 @@ import {
 import "react-vertical-timeline-component/style.min.css";
 import { experiencesData } from "@/lib/data";
 import {useSectionInView} from "@/lib/hooks"
-//import { useTheme } from "@/context/theme-context";
+import { useTheme } from "@/context/theme-context";
 // const experiencesData = [
 //   {
 //     title: "Graduated bootcamp",
@@ -41,35 +41,39 @@ import {useSectionInView} from "@/lib/hooks"
 // ] as const;
 export default function Experience() {
   const { ref, inView } = useSectionInView("Experience");
-  //const { theme } = useTheme();
+  const { theme } = useTheme();
 
   return (
-    <section id="experience" ref={ref} >
+    <section id="experience" ref={ref} className="mb-20">
       <SectionHeading>My Experience</SectionHeading>
-      <VerticalTimeline lineColor="" animate={true}>
+      <VerticalTimeline lineColor="" animate={inView}>
         {experiencesData.map((item, index) => {
          return (
            <React.Fragment key={index}>
              <VerticalTimelineElement
                visible={true}
                contentStyle={{
-                 background: "@f3f4f6",
+                 background:
+                   theme === "light" ? "#f3f4f6" : "rgba(255, 255, 255, 0.05)",
                  boxShadow: "none",
                  border: "1px solid rgba(0,0,0,0.05)",
                  textAlign: "left",
                }}
                contentArrowStyle={{
-                 borderRight: "0.4rem solid rgba(255, 255, 255, 0.5)",
+                 borderRight:
+                   theme === "light"
+                     ? "0.4rem solid #9ca3af"
+                     : "0.4rem solid rgba(255, 255, 255, 0.5)",
                }}
                date={item.date}
                icon={item.icon}
                iconStyle={{
-                 backgroundColor: "#f3f4f6",
+                 backgroundColor: theme === "light" ? "white" : "0.4rem solid rgba(255, 255, 255, 0.15)",
                }}
              >
-               <h3>{item.title}</h3>
-               <p>{item.location}</p>
-               <p>{item.description}</p>
+               <h3 className="font-bold capitalize">{item.title}</h3>
+               <p className="font-normal !mt-0">{item.location}</p>
+               <p className="!mt-1 !font-normal text-gray-700 dark:text-white/90">{item.description}</p>
              </VerticalTimelineElement>
            </React.Fragment>
          );
